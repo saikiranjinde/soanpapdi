@@ -11,7 +11,7 @@ const introText =
 
 Or should I say...
 
-Hey Soanpapdi 🍬 ❤️`;
+Meri Soanpapdi 🍬 ❤️`;
 
 let typingIndex = 0;
 
@@ -544,7 +544,60 @@ function launchConfetti(){
     animate();
 
 }
+const SUPABASE_URL = "https://lspcczecmdkdxvvpckgz.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxzcGNjemVjbWRrZHh2dnBja2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1MzQyODAsImV4cCI6MjA5NzExMDI4MH0.UkCh1R0SkKBQS3VDpQlKe6Ej5msOtHVGE_gddtZLBg4";
 
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+// Message Section
+
+
+const sendMessage =
+document.getElementById("sendMessage");
+
+const herMessage =
+document.getElementById("herMessage");
+
+const thankYouMessage =
+document.getElementById("thankYouMessage");
+
+sendMessage.addEventListener("click", async () => {
+
+    const message = herMessage.value.trim();
+
+    if (!message) return;
+
+    sendMessage.disabled = true;
+    sendMessage.innerText = "Sending... ❤️";
+
+    const { error } = await supabase
+        .from("messages")
+        .insert([
+            {
+                message: message
+            }
+        ]);
+
+    if (error) {
+
+        alert("Something went wrong 😢");
+
+        console.error(error);
+
+        sendMessage.disabled = false;
+        sendMessage.innerText = "Send ❤️";
+
+        return;
+    }
+
+    herMessage.value = "";
+
+    thankYouMessage.style.display = "block";
+
+    sendMessage.innerText = "Sent ❤️";
+});
 console.log(
 "❤️ Website Loaded Successfully ❤️"
 );

@@ -519,7 +519,7 @@ footer p{
     .dot{
         left:20px;
     }
-
+    
     .timeline-content{
         width:calc(100% - 60px);
         margin-left:60px !important;
